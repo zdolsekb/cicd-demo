@@ -6,6 +6,9 @@ nvm install node
 
 killall node
 
+npm install -g pm2
+pm2 update
+
 export app_root=/home/ec2-user/app
 if [ -d "$app_root" ];then
     rm -rf /home/ec2-user/app
