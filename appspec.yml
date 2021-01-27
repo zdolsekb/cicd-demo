@@ -71,11 +71,6 @@ hooks:
   BeforeInstall:
     - location: codedeploy/before_install.sh
       timeout: 300
-# During the AfterInstall deployment lifecycle event, run the commands 
-#   in the script specified in "location".
-  AfterInstall:
-    - location: codedeploy/after_install.sh
-      timeout: 300
 # During the ApplicationInstall deployment lifecycle event, run the commands 
 #   in the script specified in "location".
   ApplicationStart:
