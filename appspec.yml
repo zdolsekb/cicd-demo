@@ -36,12 +36,6 @@ files:
 #   "permissions" section altogether. A blank or incomplete "permissions"
 #   section may cause associated deployments to fail.
 #
-permissions:
-  - object: /home/ec2-user/app/codedeploy
-    pattern: "*.sh"
-    owner: root
-    group: root
-    mode: 755
 # If you are not running any commands on the instance, then remove 
 #   the "hooks" section altogether. A blank or incomplete "hooks" section
 #   may cause associated deployments to fail.
@@ -71,13 +65,16 @@ hooks:
   BeforeInstall:
     - location: codedeploy/before_install.sh
       timeout: 300
+      runas: ec2-user
 # During the AfterInstall deployment lifecycle event, run the commands 
 #   in the script specified in "location".
   AfterInstall:
     - location: codedeploy/after_install.sh
       timeout: 300
+      runas: ec2-user
 # During the ApplicationInstall deployment lifecycle event, run the commands 
 #   in the script specified in "location".
   ApplicationStart:
     - location: codedeploy/application_start.sh
       timeout: 300
+      runas: ec2-user
