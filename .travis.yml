@@ -2,14 +2,25 @@ language: node_js
 node_js:
 - node
 deploy:
-  matrix:
-  - provider: s3
-  - provider: codedeploy
-    access_key_id: AKIAYRMBFYNCQ7KXGGMO
-    secret_access_key: 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
-    bucket: travisci-codepipeline-deployment-22-06-2021
-    key: my_app.zip
-    application: DemoApplicationTravisCI
-    deployment_group: DemoAppTravisCIDeploymentGroup
-  secret_access_key:
-    secure: Sc6wGMhQ0Ae/tKvg9FSZxKPnOt3TNFMA8AQtnO/7R8Qe7KY8spmdbg1hdFuUilYxxs4nb4yxN0OMJncS2Lu48R2o+vcWCV2Z0FcX3bBYNREXmD2EMYfj1EnWun2HF6QSlNWlXHOMA8QJ2NXCeIxpLvyZv0bN7SilgwMybdLwDpYTSpZ0IBHm0p9w/lV/VhEFmtxlp7RdOhZpdeRUSJpKvaC4XrpS/+gSJXl9KikBitqBQX1+PG0H7gJPYzUUcX+0Uq87DCtIWA3MMKyN0rb3c/BZACORZP9Gw+vnfKL/YqcUeFGKxLTOr/Ns2edp9W9hXk8P85EDh+BYBXCTyqDHIkLbtUmuk3umwrcHBpOskjRoDXRDyL62b6mk4KzE9sCfufcMVE5p1Ayh/3zsOqjitX1SYKx6VmBZ+2ldRRKhnxFi3yexrbEyya2VuaPUPTHmI6C/xbBbHDCReGSsGpfufvIALuhvs4kpxc7IlLtwnKEPRrQM5Jow4Dv4DGK6oST1T3KInhbLxIoW1xosCLgcU454YK0a+6VW1QQQzp4G1gso2J64ElTR64R3LlCoUKlW0oyt8YOs644oPcGXbYwCWEQ3huT/8FIefydKjiBISypWr/9iWlQPrOx3O7vgkq6WNRrj+g8U0RbWOopUffAlGZk66pAWhvS+WKhmhlPLsgc=
+- provider: s3
+  access_key_id: AKIAYRMBFYNCQ7KXGGMO
+  secret_access_key: &1
+    secure: QTOwV3NfnnL/LEQBER2Si2L69IbQ6RGoTpi114ldpMQMasL4s7B2vxjp0hoTQbJ+7SPJtGKR31V1JGtzYJHD6WKEkrQEqjzRxdxBaQdL++S15SXnquYUSFQn8rNKKhQlCQWSln83ctkEWgEF9tWF8w6IKuop8rAAUbk/J/7AvDRRdcbmO3pOGupixeOV8i7qhcHKT48t+mp8aSFseFxzjQSJhE7CJQi/xYYEVkd4KsKYSXdMKnNtlDt+KSltoDkZ+ewdVLyahdU4JtjRKqFlrqUF5YPCeI9V+yPVCvGfK2J3FWX2R7ml2YmyaxftPBzHX3bCzG3856lCM7B2bk5GBMfjy0Jp9DMnGPIqYCkq148fdDaUEPA3lweHh+s4Ve3oVHAcnTR+iW7Vjo/Gq+uQQAiGHvfKnsIADXPLk4liROhb90CX2wM9UOz/0UQj5PhPri4S/y35IfXP+6ZqrJcIEy5htk6yyZAv0qzJI6LGHdEH9k9KyWUHaOeOBuX3mxSpAinJ7LS4w1qu4c648/MB5toLTlVQRcJS4uf6vWkD2MvOpqs77whWoEPMEGXwFYbsgr58PlQ0Ez8Qh3QAs6riej50G2tAw5S80BIxELW1WMzwohfWTB+G2C+yTTmZqVq8tiln8e0nmBelQblRmid7GExd+7rhJOkKWUv0h+tNpw4=
+  local_dir: dpl_cd_upload
+  skip_cleanup: true
+  on: &2
+    repo: zdolsekb/cicd-demo
+  bucket: travisci-codepipeline-deployment-22-06-2021
+- provider: codedeploy
+  access_key_id: AKIAYRMBFYNCQ7KXGGMO
+  secret_access_key: *1
+  bucket: travisci-codepipeline-deployment-22-06-2021
+  key: my_app.zip
+  bundle_type: zip
+  application: DemoApplicationTravisCI
+  deployment_group: DemoAppTravisCIDeploymentGroup
+  on: *2
+  skip_cleanup: 'true'
+before_deploy:
+- mkdir -p dpl_cd_upload
+- mv my_app.zip dpl_cd_upload/my_app.zip
