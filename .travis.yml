@@ -2,16 +2,10 @@ language: node_js
 node_js:
 - node
 
-before_deploy:
-  - zip -r my_app *
-  - mkdir -p dpl_cd_upload
-  - mv my_app.zip dpl_cd_upload/my_app.zip
-
 deploy:
   provider: s3
   access_key_id: $AWS_ACCESS_KEY
   secret_access_key: $AWS_SECRET_KEY
-  local_dir: dpl_cd_upload
   skip_cleanup: true
   bucket: travisci-codepipeline-deployment-22-06-2021
   region: eu-central-1
