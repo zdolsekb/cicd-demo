@@ -11,6 +11,7 @@ deploy:
   bundle_type: zip
   application: DemoApplicationTravisCI
   deployment_group: DemoAppTravisCIDeploymentGroup
+  region: eu-central-1
   on:
     repo: zdolsekb/cicd-demo
   skip_cleanup: 'true'
