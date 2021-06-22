@@ -1,3 +1,13 @@
 language: node_js
 node_js:
   - node
+
+deploy:
+  - provider: s3
+  - provider: codedeploy
+    access_key_id: AKIAYRMBFYNCQ7KXGGMO
+    secret_access_key: 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
+    bucket: travisci-codepipeline-deployment-22-06-2021
+    key: my_app.zip
+    application: DemoApplicationTravisCI
+    deployment_group: DemoAppTravisCIDeploymentGroup
