@@ -2,25 +2,15 @@ language: node_js
 node_js:
 - node
 deploy:
-- provider: s3
+  provider: codedeploy
   access_key_id: AKIAYRMBFYNCQ7KXGGMO
-  secret_access_key: &1
-    secure: QTOwV3NfnnL/LEQBER2Si2L69IbQ6RGoTpi114ldpMQMasL4s7B2vxjp0hoTQbJ+7SPJtGKR31V1JGtzYJHD6WKEkrQEqjzRxdxBaQdL++S15SXnquYUSFQn8rNKKhQlCQWSln83ctkEWgEF9tWF8w6IKuop8rAAUbk/J/7AvDRRdcbmO3pOGupixeOV8i7qhcHKT48t+mp8aSFseFxzjQSJhE7CJQi/xYYEVkd4KsKYSXdMKnNtlDt+KSltoDkZ+ewdVLyahdU4JtjRKqFlrqUF5YPCeI9V+yPVCvGfK2J3FWX2R7ml2YmyaxftPBzHX3bCzG3856lCM7B2bk5GBMfjy0Jp9DMnGPIqYCkq148fdDaUEPA3lweHh+s4Ve3oVHAcnTR+iW7Vjo/Gq+uQQAiGHvfKnsIADXPLk4liROhb90CX2wM9UOz/0UQj5PhPri4S/y35IfXP+6ZqrJcIEy5htk6yyZAv0qzJI6LGHdEH9k9KyWUHaOeOBuX3mxSpAinJ7LS4w1qu4c648/MB5toLTlVQRcJS4uf6vWkD2MvOpqs77whWoEPMEGXwFYbsgr58PlQ0Ez8Qh3QAs6riej50G2tAw5S80BIxELW1WMzwohfWTB+G2C+yTTmZqVq8tiln8e0nmBelQblRmid7GExd+7rhJOkKWUv0h+tNpw4=
-  local_dir: dpl_cd_upload
-  skip_cleanup: true
-  on: &2
-    repo: zdolsekb/cicd-demo
-  bucket: travisci-codepipeline-deployment-22-06-2021
-- provider: codedeploy
-  access_key_id: AKIAYRMBFYNCQ7KXGGMO
-  secret_access_key: *1
+  secret_access_key:
+    secure: I8U7weQEFCc/NNHZI89BZItKYH1xLtFo3WfRTNu8NCDRIgJGIZsMJJy/LJo+/XiIlfhcBgLrrxkkVXODSwlcnAVWnoCdEt1b7xCq8pG940r9TMbD1mWHBBa8kgNpj7UQ6bMaCgEi/XgS4icSKBpGR43kKyw27Kl7yN0v3QdXR+YU7HxQKDKHcmVcPwKv4ungBiSVV5ILAJDLdk1OsXSrhB0bDY63ky7GkzbDY6pTYR/4JQAFcCYhVbDdWUwCtOgIcJWXawXKqGb1bx1Qm30Fn8DRrBnFZLqpXJG1UKAJyheX9e7dQASYexBmFYNy7COLos+oefZcnpVgfUIvRsd6itmL5w5rf5QG3s6aTR2ZZKdNasKQQsu46etXK2fLDiThQixubXWSITHLF6ewL/IjvGVaWp5z8ERBNRhq6vLhBPIZa1XwQ0SOAi21rTkbDQZIzMUdjaCICEL3fd2ceJf4KKuNb5eZGfiVVov+V1gPYZB8HuM9UchlmK+jLDtC21xkQPwiEIU6omfIpeiw/85FKIngT0D82D2NkuRRmkGrJdf9jS518auCPBcrwPvHyl+XCybVxkQZfKc0IGIY8pIaNkq9fMG2ET4B4G3CgKZG75KXg3daNtU5P7d+3J08wDiirWpXFx5bvOh/oXmYZweu0tN+6kmQI4odrkBWAtHXSKk=
   bucket: travisci-codepipeline-deployment-22-06-2021
   key: my_app.zip
   bundle_type: zip
   application: DemoApplicationTravisCI
   deployment_group: DemoAppTravisCIDeploymentGroup
-  on: *2
+  on:
+    repo: zdolsekb/cicd-demo
   skip_cleanup: 'true'
-before_deploy:
-- mkdir -p dpl_cd_upload
-- mv my_app.zip dpl_cd_upload/my_app.zip
