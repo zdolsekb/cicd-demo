@@ -2,7 +2,8 @@ language: node_js
 node_js:
 - node
 deploy:
-  provider: codedeploy
+  - provider: s3
+  - provider: codedeploy
   access_key_id: $AWS_ACCESS_KEY
   secret_access_key: $AWS_SECRET_KEY
   bucket: travisci-codepipeline-deployment-22-06-2021
@@ -13,4 +14,3 @@ deploy:
   region: eu-central-1
   true:
     repo: zdolsekb/cicd-demo
-  skip_cleanup: 'true'
