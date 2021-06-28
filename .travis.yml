@@ -1,25 +1,22 @@
 language: node_js
 node_js:
 - node
-
+cache:
+  directories:
+    - node_modules
+before_script:
+    - apt-get update -y
+    - apt-get -y install zip unzip
+script:
+    - apt-get --quiet install --yes python-pip
+    - pip install -U pip
+    - pip install awscli
+    - zip -r app.zip .
+    - aws s3 cp app.zip s3://travisci-codepipeline-deployment-22-06-2021/my_app.zip
 deploy:
-  provider: s3
-  access_key_id: $AWS_ACCESS_KEY
-  secret_access_key: $AWS_SECRET_KEY
-  local_dir: dpl_cd_upload
-  skip_cleanup: true
-  on: &2
-    repo: zdolsekb/cicd-demo
-  bucket: travisci-codepipeline-deployment-22-06-2021
-  region: eu-central-1
   provider: codedeploy
   bucket: travisci-codepipeline-deployment-22-06-2021
   key: my_app.zip
   bundle_type: zip
   application: DemoApplicationTravisCI
   deployment_group: DemoAppTravisCIDeploymentGroup
-  on: *2
-script:
-  - zip -r my_app *
-  - mkdir -p dpl_cd_upload
-  - mv my_app.zip dpl_cd_upload/my_app.zip
