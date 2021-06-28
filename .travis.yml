@@ -12,6 +12,8 @@ script:
     - sudo pip install -U pip
     - sudo pip install awscli
     - sudo zip -r app.zip .
+    - sudo aws configure set aws_access_key_id $AWS_ACCESS
+    - sudo aws configure set aws_secret_access_key $AWS_SECRET_KEY
     - sudo aws s3 cp app.zip s3://travisci-codepipeline-deployment-22-06-2021/my_app.zip
 deploy:
   provider: codedeploy
