@@ -18,6 +18,7 @@ script:
 deploy:
   provider: codedeploy
   bucket: travisci-codepipeline-deployment-22-06-2021
+  region: eu-central-1
   access_key_id: $AWS_ACCESS_KEY
   secret_access_key: $AWS_SECRET_KEY
   key: my_app.zip
