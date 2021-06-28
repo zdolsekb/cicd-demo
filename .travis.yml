@@ -5,13 +5,14 @@ cache:
   directories:
     - node_modules
 before_script:
-    - apt-get update -y
-    - apt-get -y install zip unzip
+    - sudo apt-get update -y
+    - sudo apt-get -y install zip unzip
 script:
-    - pip install -U pip
-    - pip install awscli
-    - zip -r app.zip .
-    - aws s3 cp app.zip s3://travisci-codepipeline-deployment-22-06-2021/my_app.zip
+    - sudo apt-get --quiet install --yes python-pip
+    - sudo pip install -U pip
+    - sudo pip install awscli
+    - sudo zip -r app.zip .
+    - sudo aws s3 cp app.zip s3://travisci-codepipeline-deployment-22-06-2021/my_app.zip
 deploy:
   provider: codedeploy
   bucket: travisci-codepipeline-deployment-22-06-2021
