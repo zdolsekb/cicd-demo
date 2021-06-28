@@ -8,7 +8,6 @@ before_script:
     - apt-get update -y
     - apt-get -y install zip unzip
 script:
-    - sudo apt-get --quiet install --yes python-pip
     - pip install -U pip
     - pip install awscli
     - zip -r app.zip .
