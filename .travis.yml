@@ -8,6 +8,7 @@ before_script:
     - sudo apt-get update -y
     - sudo apt-get -y install zip unzip
 script:
+    - npm test
     - sudo apt-get --quiet install --yes python-pip
     - sudo pip install -U pip
     - sudo pip install awscli
